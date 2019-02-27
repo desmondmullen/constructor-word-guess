@@ -1,11 +1,12 @@
 const Letter = require('./letter.js');
 const inquirer = require('inquirer');
 const chalk = require('chalk');
-let theLettersArr = [];
-let theDisplayArr = [];
-let theLettersGuessed = '';
 
-const Word = function (theWord, theGuessesRemaining) {
+const Word = function (theWord, theGuessesRemaining, callback) {
+    let theLettersArr = [];
+    let theDisplayArr = [];
+    let theLettersGuessed = '';
+
     this.theWordDisplay = () => {
         theWord.split('').forEach(function (item) {
             theLettersArr.push(new Letter(item));
@@ -63,6 +64,16 @@ const Word = function (theWord, theGuessesRemaining) {
             } else {
                 console.log(chalk.black.bgGreenBright.bold('\nYay! You guessed the word!\n'));
             };
+            inquirer.prompt([{
+                name: 'playAgain',
+                type: 'confirm',
+                message: 'Would you like to play again? ',
+            }]).then((answer) => {
+                if (answer.playAgain) {
+                    console.log('\n\n' + chalk.black.bgWhite.bold('     ** New Game **     '));
+                    callback();
+                };
+            });
         };
     };
 };

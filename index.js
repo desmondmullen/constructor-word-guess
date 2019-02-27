@@ -18,7 +18,7 @@ function runGame() {
         if (err) throw err;
         let theWordToGuess = data.split('\n')[Math.floor((Math.random() * 10) + 1)];
         let theNumberOfGuesses = countUniqueLetters(theWordToGuess);
-        let theWordObject = new Word(theWordToGuess, theNumberOfGuesses);
+        let theWordObject = new Word(theWordToGuess, theNumberOfGuesses, runGame);
         theWordObject.theWordDisplay();
         theWordObject.promptAndDisplay();
     });
