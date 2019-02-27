@@ -12,11 +12,10 @@
 const letter = require('./letter.js');
 
 const Word = function (theWord) {
-    this.theWord = theWord.split('');
     this.theWordDisplay = () => {
         let theLettersArr = [];
         let theDisplayArr = [];
-        this.theWord.forEach(function (item) {
+        theWord.forEach(function (item) {
             theLettersArr.push(new letter(item));
         });
         theLettersArr.forEach(function (item) {
