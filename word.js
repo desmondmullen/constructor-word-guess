@@ -36,7 +36,7 @@ const Word = function (theWord, theGuessesRemaining, callback) {
                     this.updateDisplay();
                 } else {
                     if (theLettersGuessed.includes(answer.guess)) {
-                        console.log(''); //a '\n' cannot be used because it messes up inquirer
+                        console.log('');
                         console.log(chalk.black.bgYellow.bold('You already guessed that letter! Please try again.'));
                         console.log('');
                         this.updateDisplay();
@@ -59,7 +59,6 @@ const Word = function (theWord, theGuessesRemaining, callback) {
                 theLettersArr.forEach(function (item) {
                     theString += item.theLetter;
                 });
-
                 console.log(chalk.black.bgMagenta.bold('\nYou ran out of guesses. The word was ' + theString + '.\n'));
             } else {
                 console.log(chalk.black.bgGreenBright.bold('\nYay! You guessed the word!\n'));
