@@ -23,17 +23,15 @@ const Letter = function (theLetter) {
         };
     };
     this.checkGuess = (theGuess) => {
-        console.log(`check guess function this letter: ${this.theLetter.toLowerCase()} guess: ${theGuess.toLowerCase()} equals: ${this.theLetter.toLowerCase() === theGuess.toLowerCase()}`);
         if (this.theLetter.toLowerCase() === theGuess.toLowerCase()) {
             this.beenGuessed = true;
         };
+        return this.showIfGuessed();
     };
 };
 
 // let letterTest = new Letter('A');
 // letterTest.checkGuess('B');
-// console.log('show if guessed: ' + letterTest.showIfGuessed());
 // letterTest.checkGuess('A');
-// console.log('show if guessed: ' + letterTest.showIfGuessed());
 
 module.exports = Letter;

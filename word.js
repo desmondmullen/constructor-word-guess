@@ -10,19 +10,34 @@
  4. `Word.js` *should only* require `Letter.js`
 */
 const letter = require('./letter.js');
+const inquirer = require('inquirer');
+let theLettersArr = [];
+let theDisplayArr = [];
 
 const Word = function (theWord) {
     this.theWordDisplay = () => {
-        let theLettersArr = [];
-        let theDisplayArr = [];
-        theWord.forEach(function (item) {
+        theWord.split('').forEach(function (item) {
             theLettersArr.push(new letter(item));
         });
-        theLettersArr.forEach(function (item) {
-            theDisplayArr.push(item.showIfGuessed());
-        });
-        console.log(theDisplayArr.join(' '));
+        updateDisplay();
     };
 };
 
+const updateDisplay = function () {
+    theDisplayArr = [];
+    theLettersArr.forEach(function (item) {
+        theDisplayArr.push(item.showIfGuessed());
+    });
+    console.log(theDisplayArr.join(' '));
+};
+
 let theWordTest = new Word('ermagerd').theWordDisplay();
+let theTestGuesses = ['e', 'm', 'r'];
+for (i = 0; i < 3; i++) {
+    let theGuess = theTestGuesses[i];
+    theLettersArr.forEach(function (item) {
+        item.checkGuess(theGuess);
+    });
+    updateDisplay();
+};
+// console.log(
