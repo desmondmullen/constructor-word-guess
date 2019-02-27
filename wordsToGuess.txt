@@ -1,0 +1,10 @@
+pickle
+rooster
+chair
+noodle
+fetch
+remain
+ladder
+penguin
+sandwich
+telephone

@@ -1,20 +1,11 @@
-/*
-* **Word.js**: Contains a constructor, Word that depends on the Letter constructor. This is used to create an object representing the current word the user is attempting to guess. That means the constructor should define:
-
-  * An array of `new` Letter objects representing the letters of the underlying word
-
-  * A function that returns a string representing the word. This should call the function on each letter object (the first function defined in `Letter.js`) that displays the character or an underscore and concatenate those together.
-
-  * A function that takes a character as an argument and calls the guess function on each letter object (the second function defined in `Letter.js`)
-
- 4. `Word.js` *should only* require `Letter.js`
-*/
 const Letter = require('./letter.js');
 const inquirer = require('inquirer');
+const chalk = require('chalk');
 let theLettersArr = [];
 let theDisplayArr = [];
+let theLettersGuessed = '';
 
-const Word = function (theWord) {
+const Word = function (theWord, theGuessesRemaining) {
     this.theWordDisplay = () => {
         theWord.split('').forEach(function (item) {
             theLettersArr.push(new Letter(item));
@@ -26,23 +17,52 @@ const Word = function (theWord) {
         theLettersArr.forEach(function (item) {
             theDisplayArr.push(item.showIfGuessed());
         });
-        console.log(theDisplayArr.join(' '));
+        console.log('\n     ' + theDisplayArr.join(' ') + '\n');
     };
     this.promptAndDisplay = () => {
-        if ((theDisplayArr.join('').split('_').length - 1) > 0) {
+        let theNumberLeft = theDisplayArr.join('').split('_').length - 1;
+        if (theNumberLeft > 0 && theGuessesRemaining > 0) {
+            console.log('You have ' + theGuessesRemaining + ' guesses remaining.\n');
             inquirer.prompt([{
                 name: 'guess',
                 type: 'input',
                 message: 'Please enter your guess: ',
             }]).then((answer) => {
-                theLettersArr.forEach(function (item) {
-                    item.checkGuess(answer.guess);
-                });
-                this.updateDisplay();
+                if (answer.guess.length > 1 || !'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.includes(answer.guess) || answer.guess === '') {
+                    console.log(''); //a '\n' cannot be used because it messes up inquirer
+                    console.log(chalk.black.bgYellow.bold('Please enter a single letter only.'));
+                    console.log('');
+                    this.updateDisplay();
+                } else {
+                    if (theLettersGuessed.includes(answer.guess)) {
+                        console.log(''); //a '\n' cannot be used because it messes up inquirer
+                        console.log(chalk.black.bgYellow.bold('You already guessed that letter! Please try again.'));
+                        console.log('');
+                        this.updateDisplay();
+                    } else {
+                        theLettersArr.forEach(function (item) {
+                            item.checkGuess(answer.guess);
+                        });
+                        this.updateDisplay();
+                        if (theNumberLeft === theDisplayArr.join('').split('_').length - 1) {
+                            theGuessesRemaining--;
+                        };
+                    };
+                };
                 this.promptAndDisplay();
+                theLettersGuessed += answer.guess;
             });
         } else {
-            console.log('You guessed the word!');
+            if (theGuessesRemaining < 1) {
+                let theString = '';
+                theLettersArr.forEach(function (item) {
+                    theString += item.theLetter;
+                });
+
+                console.log(chalk.black.bgMagenta.bold('\nYou ran out of guesses. The word was ' + theString + '.\n'));
+            } else {
+                console.log(chalk.black.bgGreenBright.bold('\nYay! You guessed the word!\n'));
+            };
         };
     };
 };
