@@ -9,4 +9,21 @@
 
  4. `Word.js` *should only* require `Letter.js`
 */
+const letter = require('./letter.js');
+// console.log(new letter('a'));
 
+const Word = function (theWord) {
+    this.theWord = theWord.split('');
+    this.theWordDisplay = () => {
+        let theDisplay = [];
+        this.theWord.forEach(function (item) {
+            theDisplay.push(new letter(item).showIfGuessed());
+            // console.log(checkGuess(item));
+            // theDisplay.push(letter.checkGuess(item));
+            // console.log(item);
+        });
+        console.log(theDisplay.join(' '));
+    };
+};
+
+let theWordTest = new Word('ermagerd').theWordDisplay();
