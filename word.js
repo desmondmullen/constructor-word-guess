@@ -38,38 +38,12 @@ const Word = function (theWord) {
                 theLettersArr.forEach(function (item) {
                     item.checkGuess(answer.guess);
                 });
-                updateDisplay();
-                promptAndDisplay();
+                this.updateDisplay();
+                this.promptAndDisplay();
             });
         } else {
             console.log('You guessed the word!');
         };
-    };
-};
-
-const updateDisplay = function () {
-    theDisplayArr = [];
-    theLettersArr.forEach(function (item) {
-        theDisplayArr.push(item.showIfGuessed());
-    });
-    console.log(theDisplayArr.join(' '));
-};
-
-const promptAndDisplay = function () {
-    if ((theDisplayArr.join('').split('_').length - 1) > 0) {
-        inquirer.prompt([{
-            name: 'guess',
-            type: 'input',
-            message: 'Please enter your guess: ',
-        }]).then((answer) => {
-            theLettersArr.forEach(function (item) {
-                item.checkGuess(answer.guess);
-            });
-            updateDisplay();
-            promptAndDisplay();
-        });
-    } else {
-        console.log('You guessed the word!');
     };
 };
 
