@@ -5,3 +5,8 @@
 
   * Prompts the user for each guess and keeps track of the user's remaining guesses
 */
+const Word = require('./word.js');
+const inquirer = require('inquirer');
+
+let theWordTest = new Word('ermagerd').theWordDisplay();
+theWordTest.promptAndDisplay;

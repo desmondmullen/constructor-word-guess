@@ -30,8 +30,4 @@ const Letter = function (theLetter) {
     };
 };
 
-// let letterTest = new Letter('A');
-// letterTest.checkGuess('B');
-// letterTest.checkGuess('A');
-
 module.exports = Letter;

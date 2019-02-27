@@ -9,7 +9,7 @@
 
  4. `Word.js` *should only* require `Letter.js`
 */
-const letter = require('./letter.js');
+const Letter = require('./letter.js');
 const inquirer = require('inquirer');
 let theLettersArr = [];
 let theDisplayArr = [];
@@ -17,7 +17,7 @@ let theDisplayArr = [];
 const Word = function (theWord) {
     this.theWordDisplay = () => {
         theWord.split('').forEach(function (item) {
-            theLettersArr.push(new letter(item));
+            theLettersArr.push(new Letter(item));
         });
         updateDisplay();
     };
@@ -31,13 +31,22 @@ const updateDisplay = function () {
     console.log(theDisplayArr.join(' '));
 };
 
-let theWordTest = new Word('ermagerd').theWordDisplay();
-let theTestGuesses = ['e', 'm', 'r'];
-for (i = 0; i < 3; i++) {
-    let theGuess = theTestGuesses[i];
-    theLettersArr.forEach(function (item) {
-        item.checkGuess(theGuess);
-    });
-    updateDisplay();
+const promptAndDisplay = function () {
+    if ((theDisplayArr.join('').split('_').length - 1) > 0) {
+        inquirer.prompt([{
+            name: 'guess',
+            type: 'input',
+            message: 'Please enter your guess: ',
+        }]).then((answer) => {
+            theLettersArr.forEach(function (item) {
+                item.checkGuess(answer.guess);
+            });
+            updateDisplay();
+            promptAndDisplay();
+        });
+    } else {
+        console.log('You guessed the word!');
+    };
 };
-// console.log(
+
+module.exports = Word;
