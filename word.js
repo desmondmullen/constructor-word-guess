@@ -19,7 +19,31 @@ const Word = function (theWord) {
         theWord.split('').forEach(function (item) {
             theLettersArr.push(new Letter(item));
         });
-        updateDisplay();
+        this.updateDisplay();
+    };
+    this.updateDisplay = () => {
+        theDisplayArr = [];
+        theLettersArr.forEach(function (item) {
+            theDisplayArr.push(item.showIfGuessed());
+        });
+        console.log(theDisplayArr.join(' '));
+    };
+    this.promptAndDisplay = () => {
+        if ((theDisplayArr.join('').split('_').length - 1) > 0) {
+            inquirer.prompt([{
+                name: 'guess',
+                type: 'input',
+                message: 'Please enter your guess: ',
+            }]).then((answer) => {
+                theLettersArr.forEach(function (item) {
+                    item.checkGuess(answer.guess);
+                });
+                updateDisplay();
+                promptAndDisplay();
+            });
+        } else {
+            console.log('You guessed the word!');
+        };
     };
 };
 

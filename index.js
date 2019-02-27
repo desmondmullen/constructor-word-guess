@@ -8,5 +8,6 @@
 const Word = require('./word.js');
 const inquirer = require('inquirer');
 
-let theWordTest = new Word('ermagerd').theWordDisplay();
-theWordTest.promptAndDisplay;
+let theWordTest = new Word('ermagerd');
+theWordTest.theWordDisplay();
+theWordTest.promptAndDisplay();
