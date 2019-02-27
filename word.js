@@ -14,14 +14,15 @@ const letter = require('./letter.js');
 const Word = function (theWord) {
     this.theWord = theWord.split('');
     this.theWordDisplay = () => {
-        let theDisplay = [];
+        let theLettersArr = [];
+        let theDisplayArr = [];
         this.theWord.forEach(function (item) {
-            theDisplay.push(new letter(item));
+            theLettersArr.push(new letter(item));
         });
-        theDisplay.forEach(function (item) {
-            theDisplay.push(item.showIfGuessed());
+        theLettersArr.forEach(function (item) {
+            theDisplayArr.push(item.showIfGuessed());
         });
-        console.log(theDisplay.join(' '));
+        console.log(theDisplayArr.join(' '));
     };
 };
 
