@@ -12,9 +12,9 @@ In addition to the basic functions of..., this app does the following:
 * Additionally, do-what-it-says can be invoked with a simple parameter ('concert', 'song', or 'movie', e.g., `node liri do-what-it-says concert` to get results for the corresponding "default" searches contained in the random.txt file.
 
 ### SCREENSHOTS:
-1. `node liri` without arguments brings up basic instructions and examples:
+1. `node index` brings up basic instructions:
 ![basic instructions](screenshots/1.constructor-word-guess.png)
-2. `node liri concert-this The Who`:
-![basic instructions](screenshots/2.entering-guesses-and-play-again.png)
-3. `node liri spotify-this-song Sign of the Times`:
-![basic instructions](screenshots/3.error-checking.png)
+2. player enters guesses and can choose to play again at the end of each round:
+![entering guesses, play again](screenshots/2.entering-guesses-and-play-again.png)
+3. in the event of erroneous entries (entering more than one letter at a time, entering characters other than letters), error-checking prompts guide the user:
+![error checking](screenshots/3.error-checking.png)
