@@ -10,7 +10,7 @@ In addition to the basic functions of picking a random word to guess, collecting
 * The "guesses remaining" is calculated on-the-fly for whatever word is randomly chosen (from the `wordsToGuess.txt` file). This calculation starts with the number of *unique* letters in the word and adds two. For example, "banana" has three unique letters so while it is a six letter word, the player would be given five guesses (three unique letters plus two).
 * Guesses remaining are only decremented when the player's guess does not match a letter in the word.
 * If a player types a guess that is not a letter, is more than one letter, or is empty (he/she has hit return without entering a letter), black-on-yellow text guides the player to making a valid guess.
-* At the end of a round, the player is asked if he/she wants to play again. The default answer is "yes", so a simple press of the [return] key starts a new round. If the player wishes to replay the instructions shown at the beginning of the first round are, logically, not shown again.
+* At the end of a round, the player is asked if he/she wants to play again. The default answer is "yes", so a simple press of the [return] key starts a new round. If the player wishes to replay, the instructions shown at the beginning of the first round are, logically, not shown again.
 
 ### SCREENSHOTS:
 1. `node index` brings up basic instructions:
