@@ -1,6 +1,7 @@
 const Word = require('./word.js');
 const fs = require('fs');
 const chalk = require('chalk');
+let theWordsPicked = [];
 
 function showInstructions() {
     console.log(chalk.black.bgWhite.bold('\n\nIn this Word Guess game, a random word will be selected and you   '));
@@ -14,9 +15,21 @@ function showInstructions() {
 };
 
 function runGame() {
+    let nonDuplicatePicked = false;
     fs.readFile('wordsToGuess.txt', 'utf8', (err, data) => {
         if (err) throw err;
-        let theWordToGuess = data.split('\n')[Math.floor((Math.random() * 10) + 1)];
+        let theLength = data.split('\n').length;
+        if (theWordsPicked.length === theLength) {
+            theWordsPicked = [];
+        };
+        while (nonDuplicatePicked === false) {
+            var theRandomNumber = Math.floor(Math.random() * (theLength - 1));
+            if (!theWordsPicked.includes(theRandomNumber)) {
+                theWordsPicked.push(theRandomNumber);
+                nonDuplicatePicked = true;
+            };
+        };
+        let theWordToGuess = data.split('\n')[theRandomNumber];
         let theNumberOfGuesses = countUniqueLetters(theWordToGuess);
         let theWordObject = new Word(theWordToGuess, theNumberOfGuesses, runGame);
         theWordObject.theWordDisplay();
